@@ -8,8 +8,10 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
-            <a class="nav-link active" aria-current="page" href="#">Pokemon</a>
-            <a class="nav-link" href="#">My Pokemon</a>
+            <!-- <router-link :to="{ name:'pokemon.index' }" class="nav-link active" aria-current="page" ></router-link>
+            <router-link :to="{ name:'pokemon.favorite' }" class="nav-link active" aria-current="page" ></router-link> -->
+            <a class="nav-link active" aria-current="page" href="/">Pokemon</a>
+            <a class="nav-link" href="/favorite">My Pokemon</a>
           </div>
         </div>
       </div>
