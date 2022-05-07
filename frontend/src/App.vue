@@ -2,18 +2,8 @@
   <div class="container-sm" style="max-width:900px;">
     <nav class="navbar navbar-dark bg-dark">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Pokemon</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div class="navbar-nav">
-            <!-- <router-link :to="{ name:'pokemon.index' }" class="nav-link active" aria-current="page" ></router-link>
-            <router-link :to="{ name:'pokemon.favorite' }" class="nav-link active" aria-current="page" ></router-link> -->
-            <a class="nav-link active" aria-current="page" href="/">Pokemon</a>
-            <a class="nav-link" href="/favorite">My Pokemon</a>
-          </div>
-        </div>
+        <a class="navbar-brand" href="/"><img style="max-width:100px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/1200px-International_Pok%C3%A9mon_logo.svg.png" alt=""></a>
+        <a href="/favorite"><ion-icon class="navbar-toggler" name="heart-circle-outline" style="color:red;"></ion-icon></a>
       </div>
     </nav>
     <br>

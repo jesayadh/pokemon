@@ -2,7 +2,7 @@
     <div class="container">
         <figure class="text-center">
             <blockquote class="blockquote">
-                <h1>Pokemon List</h1>
+                <h1>Pokemon</h1>
             </blockquote>
         </figure>
         <div class="row row-cols-1 row-cols-md-5 g-4">
