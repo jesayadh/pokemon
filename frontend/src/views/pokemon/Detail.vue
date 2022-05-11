@@ -80,12 +80,13 @@ export default {
         }
     },
     methods: {
-        setPokemon(id, name, nickname, types, moves){
+        setPokemon(id, name, nickname, types, moves, countNick){
             this.pokemon.id = id;
             this.pokemon.name = name;
             this.pokemon.nickname = nickname;
             this.pokemon.types = types;
             this.pokemon.moves = moves;
+            this.pokemon.countNick = countNick;
         },
         catchPokemon(){
             this.loading = true;
@@ -94,9 +95,6 @@ export default {
                 this.loading = false;
                 console.log(result.data.data);
                 if(result.data.data==true){
-                    // this.$router.push('/favorite');
-                    // console.log(JSON.parse(localStorage.mypokemon));
-                    // console.log(this.mypokemon);
                     this.catched = true;
                     this.title = "Congrats!"
                     this.message = "You get a new pokemon, give a nickname for your new pokemon!"
@@ -119,7 +117,7 @@ export default {
         savePokemon(){
             if(this.pokemon.nickname!==""){
                 if (localStorage.getItem("mypokemon") !== null) {
-                    this.mypokemon=JSON.parse(localStorage.mypokemon);
+                    this.mypokemon = JSON.parse(localStorage.mypokemon);
                     localStorage.clear();
                 }
                 this.pokemon.pokeid = new Date().valueOf();
@@ -140,7 +138,8 @@ export default {
                 result.data.name,
                 "",
                 result.data.types,
-                result.data.moves
+                result.data.moves,
+                0
             );
             // result.data.moves.forEach(element => {
             //     console.log(element.move.name);
