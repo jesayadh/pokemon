@@ -1,6 +1,11 @@
 <template>
     <div class="card mb-3">
-        <div class="row g-0">
+        <div v-show="loading" class="text-center m-5">
+            <div style="width: 3rem; height: 3rem;" class="spinner-border text-primary mx-4" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+        <div v-show="!loading" class="row g-0">
             <div class="col-md-4">
                 <img v-bind:src="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'+pokemon.id+'.png'" class="img-fluid rounded-start" style="width:100%;" alt="...">
             </div>
@@ -127,9 +132,11 @@ export default {
         }
     },
     mounted() {
+        this.loading=true;
         const route = useRoute();
         axios.get(`https://pokeapi.co/api/v2/pokemon/${route.params.id}`)
         .then((result) => {
+            this.loading=false;
             this.setPokemon(
                 result.data.id,
                 result.data.name,
