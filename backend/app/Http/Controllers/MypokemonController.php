@@ -16,10 +16,10 @@ class MypokemonController extends Controller
                 'message' => 'Pokemon catch chance',
                 'data' => $chance
             ];
-        } catch (\Throwable $th) {
+        } catch (QueryException $e) {
             $response = [
                 'message' => 'Error',
-                'data' => $th
+                'data' => $e->errorInfo
             ];
         }
         return response()->json($response, Response::HTTP_OK);
@@ -33,16 +33,34 @@ class MypokemonController extends Controller
                 'message' => 'Pokemon release catched',
                 'data' => $chance
             ];
-        } catch (\Throwable $th) {
+        } catch (QueryException $e) {
             $response = [
                 'message' => 'Error',
-                'data' => $th
+                'data' => $e->errorInfo
             ];
         }
         return response()->json($response, Response::HTTP_OK);
     }
 
-    public function renamePokemon($name){
-        
+    public function getFiboName($num){
+        try {
+            $temp = $this->fibo($num);
+            $response = [
+                'message' => 'Pokemon name fibo',
+                'data' => $temp
+            ];
+        } catch (QueryException $e) {
+            $response = [
+                'message' => 'Error',
+                'data' => $e->errorInfo
+            ];
+        }
+        return response()->json($response, Response::HTTP_OK);
+    }
+
+    private function fibo($num){
+        if ($num <= 1)
+            return $num;
+        return $this->fibo($num - 1) + $this->fibo($num - 2);
     }
 }
