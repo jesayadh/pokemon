@@ -42,12 +42,13 @@ class MypokemonController extends Controller
         return response()->json($response, Response::HTTP_OK);
     }
 
-    public function getFiboName($num){
+    public function getFiboName(Request $request){
         try {
-            $temp = $this->fibo($num);
+            $temp = $this->fibo($request->num);
+            $tempNick = explode("-",$request->nick);
             $response = [
                 'message' => 'Pokemon name fibo',
-                'data' => $temp
+                'data' => $tempNick[0]."-".$temp
             ];
         } catch (QueryException $e) {
             $response = [

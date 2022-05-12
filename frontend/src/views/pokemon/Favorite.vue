@@ -12,10 +12,10 @@
                     <div class="card-body mx-auto">
                         <h5 class="card-title">{{pokemon.nickname}}</h5>
                         <div class="d-flex justify-content-center">
-                            <form @submit.prevent="editPokemon(pokemon.pokeid)">
+                            <form @submit.prevent="editPokemon(pokemon.pokeid,pokemon.countNick,pokemon.nickname)">
                                 <button role="button" class="btn btn-primary m-1"><ion-icon name="create-outline"></ion-icon></button>
                             </form>
-                            <form @submit.prevent="removePokemon()">
+                            <form @submit.prevent="removePokemon(pokemon.nickname,pokemon.pokeid)">
                                 <button role="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><ion-icon name="trash-outline"></ion-icon></button>
                             </form>
                             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -29,7 +29,7 @@
                                             {{ message }}
                                         </div>
                                         <div class="modal-footer">
-                                            <form @submit.prevent="deletePokemon(pokemon.pokeid)">
+                                            <form @submit.prevent="deletePokemon(choose)">
                                                 <button v-if="chance" role="button" class="btn btn-danger" data-bs-dismiss="modal">{{btnMsg}}</button>
                                             </form>
                                             <button v-if="!chance" type="button" class="btn btn-primary" data-bs-dismiss="modal">{{btnMsg}}</button>
@@ -59,6 +59,7 @@ export default {
             message:"",
             btnMsg:"",
             chance:false,
+            choose:""
         }
     },
     methods: {
@@ -67,14 +68,15 @@ export default {
                 this.pokemons = JSON.parse(localStorage.mypokemon);
             }
         },
-        removePokemon(){
+        removePokemon(nick,choose){
             axios.get(`http://127.0.0.1:8000/api/primechance`)
             .then((result) => {
                 if(result.data.data%2 == 0){
                     this.title = "You get a chance!"
-                    this.message = "Are you sure you release the selected Pokemon?"
+                    this.message = "Are you sure you release the selected "+nick+"?"
                     this.btnMsg = "Release"
                     this.chance = true
+                    this.choose = choose
                 }
                 else{
                     this.title = "Failed!"
@@ -88,24 +90,29 @@ export default {
             });
         },
         deletePokemon(pokeid){
-            var mypokemon = this.pokemons.filter(x => {
-                return x.pokeid != pokeid;
-            });
+            var mypokemon = this.pokemons.filter(x => 
+                x.pokeid !== pokeid
+            );
             localStorage.clear();
             localStorage.setItem("mypokemon", JSON.stringify(mypokemon));
             this.refreshPokemon();
         },
-        editPokemon(pokeid){
-            var findId = this.pokemons.findIndex((obj => obj.pokeid == pokeid));
-            this.pokemons[findId].nickname = "bud";
-            localStorage.clear();
-            localStorage.setItem("mypokemon", JSON.stringify(this.pokemons));
-            this.refreshPokemon();
-            console.log(this.pokemons[findId].nickname);
+        editPokemon(pokeid,fibo,nick){
+            axios.get(`http://127.0.0.1:8000/api/fiboname?num=`+fibo+`&nick=`+nick)
+            .then((result) => {
+                var findId = this.pokemons.findIndex((obj => obj.pokeid == pokeid));
+                this.pokemons[findId].nickname = result.data.data;
+                localStorage.clear();
+                localStorage.setItem("mypokemon", JSON.stringify(this.pokemons));
+                this.refreshPokemon();
+                this.pokemons[findId].countNick++;
+            })
+            .catch((err) => {
+                console.log(err);
+            });
         }
     },
     mounted() {
-        // localStorage.clear();
         this.refreshPokemon();
     }
 }

@@ -93,7 +93,6 @@ export default {
             axios.get(`http://127.0.0.1:8000/api/fiftychance`)
             .then((result) => {
                 this.loading = false;
-                console.log(result.data.data);
                 if(result.data.data==true){
                     this.catched = true;
                     this.title = "Congrats!"
@@ -124,8 +123,6 @@ export default {
                 this.mypokemon.push(this.pokemon);
                 localStorage.setItem("mypokemon", JSON.stringify(this.mypokemon));
                 this.$router.push('/favorite');
-                // console.log(JSON.parse(localStorage.mypokemon));
-                // console.log(this.mypokemon);
             }
         }
     },
@@ -141,9 +138,6 @@ export default {
                 result.data.moves,
                 0
             );
-            // result.data.moves.forEach(element => {
-            //     console.log(element.move.name);
-            // });
         })
         .catch((err) => {
             console.log(err.response);

@@ -22,4 +22,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/fiftychance', [MypokemonController::class,'getFiftyChance']);
 Route::get('/primechance', [MypokemonController::class,'getPrimeChance']);
-Route::get('/fiboname/{id}', [MypokemonController::class,'getFiboName']);
+Route::get('/fiboname', [MypokemonController::class,'getFiboName']);
